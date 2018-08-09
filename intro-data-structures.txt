@@ -1,0 +1,79 @@
+Exercises
+
+A line of people at an amusement park ride.
+	•	The line is composed of members, represented as strings.
+	•	There is a front to the line, as well as a back.
+	•	When someone enters the line, place them at the end.
+	•	People may leave the line whenever they see fit, and those behind them take their place.
+Given the above real-world information, use an array data structure to code the following solution.
+
+a) Use an array input: ["Vivian", "Ava", "Josh", "Patrick", "Mike"]
+
+A:
+const members = ["Vivian", "Ava", "Josh", "Patrick", "Mike”];
+
+b) Insert a new person, "Mary" at the end of the line. In other words, you should insert Mary after Mike.
+
+A:
+members.push(‘Mary’);
+ c) Find a person in line named "Josh." This function should return the position of 2 in the array, (recall that arrays are 0-based).
+
+A:
+
+function findMember(name,members){
+  let memberIndex = members.indexOf(name);
+  if( memberIndex > -1){
+    return memberIndex;
+}
+else{
+  console.log("Member named " + name + " does not exist");
+}
+}
+console.log(findMember('Josh', members));
+
+d) Find a person in line named "Emily." What should your function return if it does not find the item in the array?
+
+A: A  function should perform validation for all possible input cases and also for edge cases. In our function we have to check if the passed member name is present in the array and if not an appropriate message has to be displayed.
+
+function findMember(name,members){
+  let memberIndex = members.indexOf(name);
+  if( memberIndex > -1){
+    return memberIndex;
+}
+else{
+  console.log("Member named " + name + " does not exist");
+}
+}
+
+console.log(findMember(‘Emily’, members));
+
+ e) What if Ava wants to allow a friend, "Melissa", to cut in line in front of her? How would you code this so Melissa appears before Ava?
+
+A:
+members.splice(1,0,'Melissa');
+
+ f) If Patrick wants to leave the line, how would you delete him from the array?
+
+A:
+members.splice(4,1);
+
+2. Provide another real-world example that can model using a data structure
+
+A:
+Books in a library catalog
+	- The catalog consists of books in the library organized by author name.
+	- When a book is checked out, that book is removed from the catalog
+	- When a book is returned, that book is added back to the catalog.
+	- When a new book is released, that book is inserted into the catalog. If the author already exists, book is inserted under that author, otherwise a 	new author is created and the book is added to the catalog.
+	- When a book is removed from the library it is deleted from the catalog.
+
+3. How would your data structure allow developers to access and manipulate the data?
+
+A:
+The library catalog example above can be implemented using an array of objects. Each object would have the keys, author and books. This structure would allow developers to easily access and manipulate the data for a particular library book using the array index and object keys. 
+
+An example array:
+const libraryCatalog = [ {author: ‘Eva’, books: [‘Book1’, ‘Book2’]}, {author: ‘Melissa’, books: [‘Book1’, ‘Book2’, Book3]}, {author: ‘Josh’, books: [‘Book1’]} ];
+
+
+
