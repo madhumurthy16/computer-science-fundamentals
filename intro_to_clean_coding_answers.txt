@@ -27,14 +27,14 @@ A: I do not consider the above code to be clean code for the following reasons.
 #### Refactored code
 
 
-FUNCTION convertDegrees(x, y)               
- IF y = "F" THEN               
- 	SET z to (x−32) * (5/9)       // Formula to convert degrees fahrenheit to celsius
- 	PRINT z                       
- ELSE IF y = "C" THEN          
- 	SET z to x * 1.8000 + 32.00   // Formula to convert degrees celsius to fahrenheit
- 	PRINT z                       
- END IF
+FUNCTION convertDegrees(temperature,scale)    
+    IF scale = "Fahrenheit" THEN               
+       SET  fahrenheitToCelsius  to (temperature−32) * (5/9)       // Formula to convert degrees fahrenheit to celsius
+       PRINT fahrenheitToCelsius                        
+    ELSE IF scale = "Celsius" THEN          
+       SET celsiusToFarenheit to temperature * 1.8000 + 32.00     // Formula to convert degrees celsius to fahrenheit
+       PRINT celsiusToFahrenheit                      
+    END IF
 END FUNCTION
 
 
@@ -42,13 +42,12 @@ END FUNCTION
 
 
 FUNCTION calcPercent(sum, total)
- IF NOT(total = 0) THEN
-     SET percentage to sum / total * 100
- ELSE
-   PRINT "Sorry, cannot divide by 0"
- END IF
-
- PRINT percentage
+    IF NOT(total = 0) THEN
+       SET percentage to sum / total * 100
+    ELSE
+       PRINT "Sorry, cannot divide by 0"
+    END IF
+PRINT percentage
 END FUNCTION
 
 
@@ -57,13 +56,12 @@ A: I do not consider the above code to be clean code because because the functio
 #### Refactored code
 
 FUNCTION calculatePercentage(sum, total)
- IF NOT(total = 0) THEN
-     SET percentage to sum / total * 100
- ELSE
-   PRINT "Sorry, cannot divide by 0"
- END IF
-
- PRINT percentage
+    IF NOT(total = 0) THEN
+       SET percentage to sum / total * 100
+    ELSE
+       PRINT "Sorry, cannot divide by 0"
+    END IF
+    PRINT percentage
 END FUNCTION
 
 
@@ -131,19 +129,19 @@ Use the principle of extracting methods to achieve code readability and  reduce 
 
 
 FUNCTION checkoutBook(book, guest)
-     IF guest.accountActive THEN
-	CALL checkAccountStatus WITH book, guest
-      ELSE
-     	PRINT "Unable to check out book."
-     END IF
+    IF guest.accountActive THEN
+       CALL checkAccountStatus WITH book, guest
+    ELSE
+       PRINT "Unable to check out book."
+    END IF
 END FUNCTION
 
 FUNCTION CheckAccountStatus(book, guest)
-	IF NOT(guest.hasOverdueBooks) AND guest.outstandingFees = 0 THEN
-          	APPEND book to guest.books
-           	SET book.status to "Checked Out"
-           	PRINT "Your books have been issued."
-     	END IF
+    IF NOT(guest.hasOverdueBooks) AND guest.outstandingFees = 0 THEN
+       APPEND book to guest.books
+       SET book.status to "Checked Out"
+       PRINT "Your books have been issued."
+    END IF
 END FUNCTION
 
 
@@ -193,35 +191,35 @@ Use Single Responsibility Principle. Move the functions creditCardOffer and chec
 
 CLASS BankAccount
 
- FUNCTION displayBalance
-    PRINT balance
- END FUNCTION
+   FUNCTION displayBalance
+      PRINT balance
+   END FUNCTION
 
- FUNCTION deposit(amount)
-    SET balance to balance + amount
- END FUNCTION
+   FUNCTION deposit(amount)
+      SET balance to balance + amount
+   END FUNCTION
 
- FUNCTION withdraw(amount)
-     IF balance > amount THEN
-       SET balance to balance - amount
-     END
- END FUNCTION
+   FUNCTION withdraw(amount)
+       IF balance > amount THEN
+         SET balance to balance - amount
+       END 
+   END FUNCTION
 
 END CLASS
 
 CLASS Offers
 
-FUNCTION creditCardOffer
-     IF NOT(customer.hasCreditCard) THEN
+   FUNCTION creditCardOffer
+      IF NOT(customer.hasCreditCard) THEN
          CALL offerCreditCard
-     END
- END FUNCTION
+      END
+   END FUNCTION
 
- FUNCTION checkStatus
-     IF NOT(customer.hasCheckingAccount) THEN
+   FUNCTION checkStatus
+      IF NOT(customer.hasCheckingAccount) THEN
          CALL offerCheckingAccount
-     END
- END FUNCTION
+      END
+   END FUNCTION
 
 END CLASS
  
