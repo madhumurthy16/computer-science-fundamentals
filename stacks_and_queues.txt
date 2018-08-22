@@ -1,0 +1,164 @@
+
+Assignment:
+
+1. What is the main difference between a stack and a queue?
+
+A: The main difference between stacks and queues is in the way elements are removed from them.
+
+Stacks: Stacks implement last-in-first-out (LIFO) priority collection. That means, elements are inserted and removed from the top. Stacks provide push (insertion) and pop (removal) functions to handle operations.
+
+Queues: Queues implement first-in-first out (FIFO) priority collection. That means, elements are inserted at the bottom and removed from the top. Queue provides enqueue (insertion) and dequeue (removal) functions to handle operations.
+
+2. What are the similarities between stacks and queues?
+
+A: Both Stacks and Queues are data structures that enable engineers to rank tasks, create an order of operations, and support system functions. Both provide functions to handle insertion and removal of elements. Stacks provide push (insertion) and pop (removal). Queue provides enqueue(insertion) and dequeue(removal).
+
+ 3. Imagine you are an engineer tasked with implementing the UNDO and REDO options in a word processor such as Microsoft word. Which data structure would you use for each option and why?
+
+A: 
+
+A stack’s last-in-first-out sequence to insert or remove data can be used to implement both UNDO and REDO operations. Pop method can be used for UNDO and push method for REDO.
+
+Programming Questions
+
+1. Given a string, reverse it using a stack
+
+class Stack {
+  constructor(){
+    this.pointer = 0;
+    this.elements = [];
+    this.reversedString = "";
+  }
+
+  push(character){
+      this.elements[this.pointer] = character;
+      this.pointer++;
+  }
+
+  pop(){
+    this.pointer--;
+    return this.elements[this.pointer];
+  }
+
+  reverseString(originalString) {
+    console.log("original string is " + originalString);
+    for(let i=0; i < originalString.length; i++){
+      let char = originalString.charAt([i]);
+      this.push(char);
+    }
+    while(this.pointer > 0 ) {
+      this.reversedString+=(this.pop());
+    }
+    return this.reversedString;
+  }
+}
+
+const stack = new Stack();
+console.log("Reversed string is " + stack.reverseString('Bloc!'));
+
+2. Implement the delete functionality of a stack using one queue. Make a FIFO data structure mirror the functionality of a LIFO data structure.
+
+class Queue {
+  constructor(){
+    this.frontPointer = 0;
+    this.backPointer = 0;
+    this.items = [];
+  }
+
+  isEmpty(){
+    if(this.frontPointer === this.backPointer){
+      return true;
+    }
+    else{
+      return false;
+    }
+  }
+
+  enqueue(element){
+      this.items[this.backPointer]=element;
+      this.backPointer++;
+    }
+
+  dequeue(){
+      if(!this.isEmpty()){
+        let temp = this.items[this.frontPointer];
+        this.frontPointer++;
+        return temp;
+      }
+      else{
+      console.log("Cannot dequeue from an empty queue");
+    }    
+    }
+
+    popLikeStack(){
+      let count = 0;
+      let numberIteration = this.items.length-1;
+      while( count < numberIteration) {
+        let frontElement = this.dequeue();
+        this.enqueue(frontElement);
+        count++;
+      }
+      let poppedElement = this.dequeue();
+      return poppedElement;
+    }
+}
+
+const queue = new Queue();
+
+queue.enqueue(2);
+queue.enqueue(4);
+queue.enqueue(8);
+queue.enqueue(10);
+console.log("popped element is ", queue.popLikeStack());
+
+
+3. Implement the enqueue and dequeue methods defined in the checkpoint inside your own Queue class.
+
+class Queue {
+  constructor(){
+    this.frontPointer = 0;
+    this.backPointer = 0;
+    this.items = [];
+  }
+
+  isEmpty(){
+    if(this.frontPointer === this.backPointer){
+      return true;
+    }
+    else{
+      return false;
+    }
+  }
+
+  enqueue(element){
+      this.items[this.backPointer]=element;
+      this.backPointer++;
+    }
+
+  dequeue(){
+      if(!this.isEmpty()){
+        let temp = this.items[this.frontPointer];
+        this.frontPointer++;
+        return temp;
+      }
+      else{
+      console.log("Cannot dequeue from an empty queue");
+    }    
+  }
+}
+
+const queue = new Queue();
+
+queue.enqueue(2);
+queue.enqueue(4);
+queue.enqueue(8);
+queue.enqueue(10);
+
+console.log(queue.dequeue());
+console.log(queue.dequeue());
+
+
+
+
+
+
