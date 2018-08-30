@@ -1,0 +1,289 @@
+Exercises
+
+1.   What is a hash table?
+A:   A hash table is a data structure that stores data as a key-value pair. Each key must be unique in a hash table; therefore a value can be retrieved by looking up its distinct key.
+	
+2.  What is hashing?
+A: Hashing is the process of converting string keys into numerical indices. The value corresponding to that key is then stored at this index. A hashing function is used to convert the key to a specific, fixed-length number, referred to as a hash code.
+
+3. How does a hash table store data?
+A: Hash table stores data as a key-value pair. That is, the value is stored at a particular location in a hash table, by linking it to a key. To determine the location at which to store the value, a calculation is applied to the corresponding key (using a hashing function), which may be a large number or a string and transform it into a relatively small index number that corresponds to a position in the hash table. 
+	
+4. How are hash tables and objects different?
+A: Hash tables are used to store and retrieve collections of similar data. The data is commonly stored by some form of identifier. 
+Example: An employee hash table can store each employees data keyed by the employees ID.
+
+Objects on the other hand hold different types of data bundled together. Each piece of data is tied to a property name, and that property determines the type of data. 
+In the above employee hash table example, each employee data could be an object. 
+
+Other differences are:
+	- The keys of an Object should be simple type - Strings and Symbols, whereas hey can be any value for a Map, including functions, objects, and any primitive.
+	- The keys in Map are ordered while keys added to object are not. Thus, when iterating over it, a Map object returns key in order of insertion.
+	- You can get size of a Map with the size property, while the number of properties in an Object must be determined manually.
+	- Map is built-in iterable, whereas Object is not
+	- A map may perform better in scenarios involving frequent addition and removal of key pairs.
+
+
+5. Determine whether you would use a hash table or an object to store each of the following pieces of data:
+	1. A list of pets and their unique names. - Hash Table
+	2. The name, age, and the birthday of your best friend. - Object
+	3. The name and location of every company in a given city. - Hash Table
+	4. All of the books checked out from a library by a particular individual. - Hash Table
+	5. The primary and secondary phone numbers for a contact. - Object
+
+6. Build a system that allows a sales associate to enter a customer's name, address, and phone number into the system and look up 	customers using their phone numbers. Store this information in a hash table.
+
+A:
+
+class HashTable {
+  constructor(maxLimit){
+    this.maxLimit = maxLimit;
+    this.customerData = [];
+    this.index = 0;
+  }
+
+  hash(string){
+    let hash = 0;
+    for(let i = 0; i < string.length; i++) {
+      hash+= string.charCodeAt(i);
+    }
+    this.index = hash % this.maxLimit;
+  }
+
+  set(phoneNumber, name, address){
+    this.hash(phoneNumber);
+    if(this.customerData[this.index] === undefined){
+      this.customerData[this.index] = [[phoneNumber, name, address]];
+    }
+    else {
+      var inserted = false;
+      for(var i = 0; i < this.customerData[this.index].length; i++) {
+        if(this.customerData[this.index][i][0] === phoneNumber) {
+          this.customerData[this.index][i][1] = name;
+          this.customerData[this.index][i][2] = adress;
+          inserted = true;
+         }
+      }
+      if(inserted === false) {
+        this.customerData[this.index].push([phoneNumber, name, address]);
+      }
+    }
+  }
+
+  get(phoneNumber){
+    this.hash(phoneNumber);
+      if(this.customerData[this.index] === undefined){
+        return undefined;
+    }
+    else{
+      for(var i = 0; i < this.customerData[this.index].length; i++) {
+        if(this.customerData[this.index][i][0] === phoneNumber){
+          return this.customerData[this.index][i];
+        }
+      }
+    }
+  }
+
+  remove(phoneNumber){
+    this.hash(phoneNumber);
+    if(this.customerData[this.index][0][0] === phoneNumber && this.customerData[this.index].length === 1) {
+      delete this.customerData[this.index];
+    }
+    else{
+      for(let i = 0; i < this.customerData[this.index].length; i++) {
+        if(this.customerData[this.index][i][0] === phoneNumber){
+          delete this.customerData[this.index][i];
+      }
+    }
+  }
+}
+}
+
+const customerDatabase = new HashTable(2);
+customerDatabase.set('4155677645', 'Linda', '122 Maple Drive');
+customerDatabase.set('4153672340','Amy', '122 Cedar Drive');
+customerDatabase.set( '7129871122', 'Mandy', '122 Skyview Drive');
+customerDatabase.set('4075676453', 'Maya', '122 Marinwood Drive');
+
+console.log(customerDatabase.get('4153672340'));
+customerDatabase.remove('4153672340');
+
+7. Build a system that allows a store owner to track their store's inventory using a hash table for storage.
+
+class HashTable {
+  constructor(maxLimit){
+    this.maxLimit = maxLimit;
+    this.inventory = [];
+    this.index = 0;
+  }
+
+  hash(string){
+    let hash = 0;
+    for(let i = 0; i < string.length; i++){
+      hash += string.charCodeAt(i);
+    }
+    this.index = hash % this.maxLimit;
+  }
+
+  // Add new item to the inventory
+  addNewItem(itemNumber, itemName, quantity){
+    this.hash(itemNumber);
+    if(this.inventory[this.index] === undefined){
+      this.inventory[this.index] = [[itemNumber, itemName, quantity, true]];
+    }
+    else{
+      let inserted = false;
+      for(let i = 0; i < this.inventory[this.index].length; i++) {
+        if(this.inventory[this.index][i][0] === itemNumber){
+          this.inventory[this.index][i][1] = itemName;
+          this.inventory[this.index][i][2] = quantity;
+          this.inventory[this.index][i][3] = true;
+          inserted = true;
+        }
+      }
+      if(inserted === false) {
+          this.inventory[this.index].push([itemNumber, itemName, quantity, true]);
+      }
+    }
+  }
+
+  // Remove an item from the inventory
+  removeItem(itemNumber){
+    this.hash(itemNumber);
+    if(this.inventory[this.index].length === 1 && this.inventory[this.index][0][0] === itemNumber) {
+      delete this.inventory[this.index];
+    }
+    else {
+      for(let i = 0; i < this.inventory[this.index].length; i++){
+        if(this.inventory[this.index][i][0] === itemNumber){
+          delete this.inventory[this.index][i];
+        }
+      }
+    }
+  }
+
+  // Update an item quantity for new shipment
+  increaseItemQuantity(itemNumber, quantity){
+    this.hash(itemNumber);
+    if(this.inventory[this.index] === undefined){
+      console.log("This item no longer exists");
+      return undefined;
+    }
+    else {
+      for(let i = 0; i < this.inventory[this.index].length; i++) {
+        if(this.inventory[this.index][i][0] === itemNumber){
+          this.inventory[this.index][i][2] += quantity;
+          this.inventory[this.index][i][3] = true;
+        }
+      }
+    }
+  }
+
+// Update an item quantity after purchase
+  decreaseItemQuantity(itemNumber, quantity){
+    this.hash(itemNumber);
+    if(this.inventory[this.index] === undefined){
+      console.log("This item no longer exists");
+      return undefined;
+    }
+    else {
+      for(let i = 0; i < this.inventory[this.index].length; i++) {
+        if(this.inventory[this.index][i][0] === itemNumber){
+          this.inventory[this.index][i][2] -= quantity;
+          if(this.inventory[this.index][i][2] <= 0){
+            this.inventory[this.index][i][3] = false;
+            return;
+          }
+        }
+      }
+    }
+  }
+  
+  //Check if an item is in stock
+  isInStock(itemNumber){
+    this.hash(itemNumber);
+    if(this.inventory[this.index] === undefined){
+      return undefined;
+    }
+    else {
+      for(let i = 0; i < this.inventory[this.index].length; i++) {
+        if(this.inventory[this.index][i][0] === itemNumber){
+          return this.inventory[this.index][i][3];
+        }
+      }
+    }
+  }
+}
+
+let stationaryInventory = new HashTable(10);
+stationaryInventory.addNewItem('45076', 'Journal', 20);
+stationaryInventory.addNewItem('18583', 'Pens', 1);
+stationaryInventory.addNewItem('46545', 'Markers', 150);
+stationaryInventory.addNewItem(' 44104', 'Highlighters', 200);
+stationaryInventory.addNewItem('44751', 'Pencils', 400);
+stationaryInventory.addNewItem('24857', 'Erasers', 400);
+stationaryInventory.addNewItem('38626', 'Binders', 300);
+
+stationaryInventory.removeItem('38626');
+
+stationaryInventory.increaseItemQuantity('45076', 10);
+
+stationaryInventory.decreaseItemQuantity('18583', 1);
+
+if(stationaryInventory.isInStock('18583')){
+   console.log("Item is in stock");
+ }
+ else{
+   console.log("Item is not in stock");  
+ }
+
+8. Build a system that allows digital copies of newspapers to be entered and searched by publisher and publication date.  Use hash tables to store the necessary data.
+
+class HashTable {
+  constructor(maxLimit) {
+    this.maxLimit = maxLimit;
+    this.newspaper = [];
+    this.index = 0;
+  }
+
+hash(string) {
+  let hash = 0;
+  for( let i = 0; i < string.length; i++) {
+    hash += string.charCodeAt(i);
+  }
+  this.index = hash % this.maxLimit;
+}
+
+setNewspaper(publisher, publicationDate, news) {
+  this.hash(publisher +  publicationDate);
+  
+  if(this.newspaper[this.index] === undefined) {
+    this.newspaper[this.index] = [[ publisher, publicationDate, news]];
+  }
+  else {
+    this.newspaper[this.index].push([ publisher, publicationDate, news]);
+  }
+}
+
+getNewspaper(publisher, publicationDate) {
+  this.hash(publisher +  publicationDate);
+  if(this.newspaper[this.index] === undefined) {
+    return undefined;
+  }
+  else {
+    for( let i=0; i < this.newspaper[this.index].length; i++) {
+      if(this.newspaper[this.index][i][0] === publisher && this.newspaper[this.index][i][1] === publicationDate) {
+        return this.newspaper[this.index][i][2];
+      }
+    }
+  }
+}
+}
+
+const digitalNewspaper = new HashTable(10);
+digitalNewspaper.setNewspaper('San Francisco Chronicle', '9-27-2018', 'Daily news from San Francisco Chronicle');
+digitalNewspaper.setNewspaper('The New York Times', '9-27-2018', 'Daily news from The New York Times');
+digitalNewspaper.setNewspaper('The Washington Post', '9-27-2018', 'Daily News from The Washington Post');
+digitalNewspaper.setNewspaper('The Wall Street Journal', '9-27-2018', 'Daily News from The Wall Street Journal');
+
+digitalNewspaper.getNewspaper('San Francisco Chronicle', '9-27-2018');
