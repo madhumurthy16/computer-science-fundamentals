@@ -1,0 +1,200 @@
+Exercises
+
+1. What are some pros and cons of using linked lists instead of arrays?
+
+A: 
+Pros of using linked lists to arrays:
+- Unless we want to insert elements at the end of the array, inserting elements is quite costly arrays. Whereas, linked lists supports extremely efficient insertion and deletion of elements. It can be done in constant time.
+
+- Array size is allocated once at declaration and is fixed. This can be very inflexible, and arrays cannot grow as our data grows. Linked lists are dynamically allocated in memory and hence can easily grow as the data grows.
+
+Cons of using linked lists to arrays:
+- Arrays are great for element lookup, as they can be indexed. On the other hand, linked lists does not provide indexing of elements. So, we lose the ability to randomly access list elements. So, accessing elements takes linear time since we have to go through the list starting from head node each time we need to access an element.
+	
+2. Come up with a real world example of a linked list
+A: A game of scavenger hunt can be represented as a linked list. We start at the first clue(head), which points to the next clue (the pointer) and so on, until the final clue (end of the list ) is reached.
+
+
+Programming Questions:
+
+1. The linked list push function should take a value, create a node, and add it to the end of a list. Below is pseudocode for a push function for a singly linked list. However, there is something wrong with it. Submit both an explanation of the bug and a functional implementation of the method.
+
+Explanation of the bug: The given pseudo code does not take into account a linked list with multiple nodes. It does not traverse the linked list to find the last node, before inserting. The given pseudocode will always insert a node as either a head node or after the head node.
+
+Functional Implementation:
+
+function LinkedList(){
+  let head = null;
+  let length = 0;
+
+  // Create a new node
+  let Node = function(element){
+    this.element = element;
+    this.nextNode = null;
+  };
+
+  //Add a node to the end of the linked list
+  this.push = function(element){
+    let node = new Node(element);
+    if(head === null){
+      head = node;
+    }
+    else{
+      let currentNode = head;
+      while(currentNode.next){
+        currentNode = currentNode.next;
+      }
+      currentNode.next = node;
+    }
+    length++;
+  };
+
+  this.print = function(){
+    let currentNode = head;
+    for(let i = 0; i < length; i++){
+      console.log(currentNode.element);
+      currentNode = currentNode.next;
+    }
+  };
+} // End linkedList()
+
+let scanvengerHunt = new LinkedList();
+scanvengerHunt.push("First clue");
+scanvengerHunt.push("Second clue");
+scanvengerHunt.push("Third clue");
+scanvengerHunt.push("Last clue");
+scanvengerHunt.print();
+
+2. Given an unsorted singly linked list, remove all duplicates from the linked list.
+
+function LinkedList(){
+  let head = null;
+  let length = 0;
+
+  // Create a new node
+  let Node = function(element){
+    this.element = element;
+    this.next = null;
+  };
+
+  //Add a node to the end of the linked list
+  this.push = function(element){
+    let node = new Node(element);
+    if(head === null){
+      head = node;
+    }
+    else{
+      let currentNode = head;
+      while(currentNode.next){
+        currentNode = currentNode.next;
+      }
+      currentNode.next = node;
+    }
+    length++;
+  };
+
+  // Remove duplicates
+  this.removeDuplicates = function(){ 
+  let compareNode = head;
+  while(compareNode.next !== null){
+    let currentNode = compareNode;
+    while(currentNode.next !== null){
+      let nextNode = currentNode.next;
+      if(nextNode.element === compareNode.element){
+        currentNode.next = nextNode.next;
+        length--;
+      }
+      else{
+        currentNode = currentNode.next;
+      }
+    }
+    if(compareNode.next){
+      compareNode = compareNode.next;
+    }
+  }
+};
+
+//Print linked list
+this.print = function(){
+  let currentNode = head;
+  for(let i = 0; i < length; i++){
+    console.log(currentNode.element);
+    currentNode = currentNode.next;
+  }
+};
+} // End linkedList()
+
+let linkedList = new LinkedList();
+linkedList.push("a");
+linkedList.push("c");
+linkedList.push("d");
+linkedList.push("d");
+linkedList.push("a");
+linkedList.print();
+linkedList.removeDuplicates();
+console.log("After removing the duplicates")
+linkedList.print();
+
+3. Given an unsorted singly linked list, reverse it
+
+function LinkedList(){
+  let head = null;
+  let length = 0;
+
+  // Create a new node
+  let Node = function(element){
+    this.element = element;
+    this.next = null;
+  };
+
+  //Add a node to the end of the linked list
+  this.push = function(element){
+    let node = new Node(element);
+    if(head === null){
+      head = node;
+    }
+    else{
+      let currentNode = head;
+      while(currentNode.next){
+        currentNode = currentNode.next;
+      }
+      currentNode.next = node;
+    }
+    length++;
+  }; 
+
+  // Reverse a linked list
+  this.reverse = function(){
+    let previousNode = null;
+    let nextNode = null;
+    let currentNode = head;
+    while(currentNode !== null){
+      nextNode = currentNode.next;
+      currentNode.next = previousNode;
+      previousNode = currentNode;
+      currentNode = nextNode;
+    }
+    head = previousNode;
+  };
+
+  //Print linked list
+  this.print = function(){
+    let currentNode = head;
+    for(let i = 0; i < 4; i++){
+      console.log(currentNode.element);
+      currentNode = currentNode.next;
+    }
+  };
+} // End linkedList()
+
+let linkedList = new LinkedList();
+linkedList.push("a");
+linkedList.push("b");
+linkedList.push("c");
+linkedList.push("d");
+linkedList.print();
+linkedList.reverse();
+console.log("After reversing")
+linkedList.print();
+
+
