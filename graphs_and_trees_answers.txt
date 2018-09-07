@@ -1,0 +1,218 @@
+Exercises
+
+1. What is a binary tree and what makes it unique to other trees?
+
+A: A binary tree is a dynamic data structure that can shrink and grow in memory. Each item in the tree are called as nodes. A binary tree has a root node at the top and grows downwards. A node in a binary tree may have up to two child nodes; a left node and a right node. 
+
+Binary trees can be used to access nodes based on some value or label associated with each node. Binary trees labelled this way are used to implement binary search trees and are used for efficient sorting and searching.
+
+Binary trees can reflect structural relationships in data such as hierarchies.
+
+2. What is a heuristic?
+
+A: Heuristics are guesses that an algorithm makes to solve a complex problem sooner by sacrificing accuracy.
+This solution may not be the best of all the solutions to this problem, or it may simply approximate the exact solution. But it is still valuable because finding it does not require a prohibitively long time.
+
+3. What is another problem besides the shorter-path problem that requires the use of heuristics?
+
+A: Designing a game of chess on the computer. Developing an algorithm that investigates every single possible move by a player would result in far too many results. Heuristics can be used to determine moves that would likely lead to a win, while discarding the moves that would lead to defeat.
+
+4. What is the difference between a depth-first search and  a breath-first search?
+  
+Both DFS and BFS are algorithms for traversing or searching tree or graph data structures. 
+
+DFS is the process of traveling down a single branch in search of a desired element. If the element is not found, move upwards and repeat the process with the unvisited nodes.
+
+BFS involves searching an entire row of nodes before proceeding to the next. At the root node, this requires searching up to two nodes. As we descend to lower levels, the number of nodes increases.
+
+5. Explain in your own words what an undirected, a-cyclic, unweighted graph is.
+
+A: An undirected graph is one where the edge connecting two nodes neither starts nor ends at either node, it merely connects the two. In Cyclic graphs, nodes may form a loop. An unweighted graph do not assign the cost of travel between the nodes.
+
+So, an undirected, a-cyclic, unweighted graph would be a combination of all the above graphs. Example:
+Binary tree could be a undirected, a-cyclic, unweighted graph.
+
+6. What kind of graph is a binary search tree?
+
+A: A tree graph.
+
+Programming Questions:
+
+1. Given a Binary Search Tree and a value, write a function that checks to see whether the value exists within the tree.
+
+class Node {
+  constructor(data) {
+    this.data = data;
+    this.lPointer = null;
+    this.rPointer = null;
+  }
+}
+
+class BinarySearchTree {
+  constructor() {
+    this.root = null;
+  }
+
+  insert(data) {
+    let node = new Node(data);
+    if(this.root === null) {
+      this.root = node;
+    }
+    else {
+      let currentNode = this.root;
+      while(currentNode){
+        let parentNode = currentNode;
+        if(node.data < currentNode.data) { // Go left
+          if(currentNode.lPointer === null) {
+            parentNode.lPointer = node;
+            return;
+          }
+          else {
+            currentNode = currentNode.lPointer;
+          }
+        } // End - Go left
+        else { // Go right
+          if(currentNode.rPointer === null){
+            parentNode.rPointer = node;
+            return;
+          }
+          else { 
+            currentNode = currentNode.rPointer;
+          }
+        } // End - Go right
+      } // End while
+    } // End else 
+  } //End insert()
+
+  find(data) {
+    if(this.root === null){
+      console.log("Tree is empty");
+      return;
+    }
+    else {
+      let currentNode = this.root;
+      while(currentNode) {
+        if(currentNode.data === data){
+          console.log("Value exists in the tree");
+          return currentNode;
+        }
+        else if(data < currentNode.data) {
+          currentNode = currentNode.lPointer;
+        }
+        else {
+          currentNode = currentNode.rPointer;
+        }
+      } //End while()
+      console.log("Value does not exist in the tree");
+    } // End else
+  } // End find() 
+} //End class
+
+let tree = new BinarySearchTree();
+tree.insert(8);
+tree.insert(13);
+tree.insert(9);
+tree.insert(73);
+tree.insert(5);
+tree.find(73);
+
+2. Given a Binary Search Tree and two nodes, n1 and n2, write a function that finds the distance between the two nodes.
+
+class Node {
+  constructor(data) {
+    this.data = data;
+    this.lPointer = null;
+    this.rPointer = null;
+  }
+}
+
+class BinarySearchTree {
+  constructor() {
+    this.root = null;
+  }
+
+  insert(data) {
+    let node = new Node(data);
+    if(this.root === null) {
+      this.root = node;
+    }
+    else {
+      let currentNode = this.root;
+      while(currentNode){
+        let parentNode = currentNode;
+        if(node.data < currentNode.data) { // Go left
+          if(currentNode.lPointer === null) {
+            parentNode.lPointer = node;
+            return;
+          }
+          else {
+            currentNode = currentNode.lPointer;
+          }
+        } // End - Go left
+        else { // Go right
+          if(currentNode.rPointer === null){
+            parentNode.rPointer = node;
+            return;
+          }
+          else { 
+            currentNode = currentNode.rPointer;
+          }
+        } // End - Go right
+      } // End while
+    } // End else 
+  } //End insert()
+
+  countRootToNodeEdges(data) {
+    let edgeCount = 0;
+    if(this.root === null){
+      console.log("Tree is empty");
+      return;
+    }
+    else {
+      let currentNode = this.root;
+      while(currentNode) {
+        if(currentNode.data === data){
+          return edgeCount;
+        }
+        else if(data < currentNode.data) {
+          currentNode = currentNode.lPointer;
+          edgeCount += 1;
+        }
+        else {
+          currentNode = currentNode.rPointer;
+          edgeCount += 1;
+        }
+      } //End while()
+      return null;
+    } // End else
+  } // End find() 
+
+  findDistance(n1, n2) {
+    let n1Edges = this.countRootToNodeEdges(n1);
+    let n2Edges = this.countRootToNodeEdges(n2);
+    if(n1Edges === null || n2Edges === null) {
+      console.log("The given node/s does not exist. Distance cannot be calculated.");
+    }
+    else{
+      if((n1 < this.root.data && n2 < this.root.data) || (n1 > this.root.data && n2 > this.root.data)){
+        console.log("The distance between", n1, "and", n2, "is,",Math.abs(n1Edges-n2Edges));
+      }
+      else{
+        console.log("The distance between", n1, "and", n2, "is,", n1Edges+n2Edges);
+      }
+    }
+  }  
+} // End class
+
+let tree = new BinarySearchTree();
+tree.insert(8);
+tree.insert(3);
+tree.insert(10);
+tree.insert(1);
+tree.insert(6);
+tree.insert(14);
+tree.insert(4);
+tree.insert(7);
+tree.insert(13);
+
+tree.findDistance(8,13);
