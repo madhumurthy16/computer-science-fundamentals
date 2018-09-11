@@ -1,0 +1,98 @@
+Exercises
+Using proper pseudo-code, describe the following primitive algorithms:
+
+# Making coffee 
+FILL coffee pot with water	
+PLACE the coffee pot on the coffee machine 
+PLACE coffee filter inside the filter holder
+ADD coffee powder
+Close the coffee maker lid
+TURN ON the coffee machine
+IF coffee is done brewing
+	POUR coffee into a mug
+		IF milk needed 		// Coffee with milk
+			ADD milk
+			IF sugar needed
+				ADD sugar
+				STIR coffee
+				SERVE coffee
+			END IF
+			ELSE 
+				STIR coffee
+				SERVE coffee
+			END ELSE
+		END IF
+		ELSE IF sugar needed 	// Black coffee with sugar
+			ADD sugar
+			STIR coffee	
+			SERVE coffee
+		END ELSE IF
+		ELSE
+			SERVE COFFEE	 	// Black coffee
+		END ELSE
+END IF 	
+ELSE
+	Check coffee maker 
+END ELSE
+	
+# Washing dishes
+
+WHILE dishes in the sink
+	ADD soap to cleaning sponge
+	PICK UP a dish
+	DO
+		SCRUB the dish with the sponge 
+	WHILE dish is not clean
+	RINSE the dish with water
+	Place the clean dish on the drying rack
+END WHILE	
+	
+#A choice of your own. 
+##Making scrambled eggs
+
+TAKE eggs 
+TAKE a bowl
+WHILE there are eggs 
+	CRACK the egg into the bowl
+END WHILE
+TAKE a whisk
+DO
+	WHISK the eggs in the bowl
+WHILE egg mixture is not fluffy 
+PLACE a skillet on the stove
+TURN ON the stove
+IF stove is hot
+	ADD butter to pan
+	ADD egg mixture to pan
+	TAKE a spatula
+	DO
+		MIX the eggs
+	WHILE eggs are not firm but soft
+	TURN OFF stove
+END IF
+TAKE a plate
+TRANSFER scrambled eggs onto the plate
+Sprinkle salt and pepper
+SERVE SCRAMBLED eggs
+
+2. As with the knot algorithm, there may be more than one way to solve the problem. It is essential to try to pick the best algorithm for a situation. Name three companies who created an algorithm that made them successful, e.g., Google's search algorithm. It doesn't need to be a tech example (such as a recipe or manufacturing a product). Google's algorithm produces more relevant results than other search engines; what about each of your cases that make them stand out?
+
+# match.com - Online dating service
+ match.com a website based on forming relationships between people uses a sophisticated algorithm known as a synapse to predict possible matches. This algorithm takes into consideration not only stated user preference but also the activity and browsing patterns of users to predict likely matches.
+ #netflix - the digital streaming company
+More than 80 percent of the TV shows people watch on Netflix are discovered through the platform’s recommendation system. Netflix uses machine learning and recommendation algorithms to help break viewers preconceived notions and find shows that they might not have initially chosen.
+
+# Yelp
+Yelp connects people with great local businesses through helpful and reliable reviews for the Yelp community among the millions they get. Since images are almost as vital to Yelp as user reviews, Yelp is always trying to improve how it handles image processing. Yelp uses machine learning to implement its picture classification technology. Yelp’s machine learning algorithms help the company’s human staff to compile, categorize, and label images more efficiently - no small feat when you’re dealing with tens of millions of photos.
+
+3. Hypothesize about what constitutes an efficient algorithm versus an inefficient algorithm.
+An algorithm is considered efficient if its resource consumption is below some pre-defined acceptable level. An efficient algorithm should run in a reasonable amount of time on an available computer or hardware specifications. 
+
+The two common measures are:
+Time: how long does the algorithm take to complete
+Space: how much working memory(typically RAM) is needed by the algorithm. This includes, the amount of memory needed by the code, and the amount of memory needed for the data on which the code operates.
+
+For an algorithm to be efficient, the above two factors should be optimized that is,  the algorithm should fulfill all the proper requirements with minimum amount of time and within specified space limits and should not overload the memory. 
+
+
+
