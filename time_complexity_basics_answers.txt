@@ -1,0 +1,75 @@
+Exercises
+
+1. What is time complexity and what is its relation to algorithms? A: Time complexity is a function that estimates the time it takes for a program to execute. Time complexity is the metric used to describe the efficiency of an algorithm. 
+
+2. What is runtime?
+A: Runtime is the physical time duration of an algorithm. It is used synonymously with the time complexity. 
+3. How is the runtime of an algorithm calculated?
+A: The runtime (or time complexity) of an algorithm is calculated, by adding how many instructions an algorithm will execute as a function of the size of its input, then simplify the expression to the largest term and drop any constants.
+(The largest term is the number with the greatest power.) 
+4. Name the six types of algorithm growth rates we saw in this checkpoint and list them in order of most efficient to least efficient. Now Google another algorithmic growth rate not covered and place it in the correct spot in your list. 
+A: 
+1.Constant Growth Rate - O(n)
+2. Logarithmic Growth Rate - O(n log n)
+3. Linear Growth Rate - O(n)
+4. Log-Linear Growth Rate - O(n log n)
+5. Quadratic Growth Rate - O(n^2)
+6. Cubic Growth Rate - O(n^3) or Polynomial growth rate - O(n^k)
+7. Exponential Growth Rate - O(2^N)
+
+5. Choose one of the algorithmic growth rates from the last question and make a comparison to a real-life situation. A: Linear growth rate - Counting the number of people in a line.
+ 
+6. Determine the time complexity of the following snippets of code. 
+
+1. Linear search.
+
+Let n = the length of array
+
+FUNCTION linearSearch(array, target)
+ FOR each number in the array // (A) Runs ’n’ times
+   IF number = target THEN    // (B) Constant operation that is run ’n’ times
+     RETURN true				
+   END IF
+ END FOR
+ RETURN false
+END FUNCTION
+
+
+Time complexity = Runtime of (A) + Runtime of (B) = n + n = 2n
+Dropping the constant 2, Time complexity = O(n), linear growth rate
+
+2. 
+Let n = Size of the array
+
+FUNCTION foo(array)
+ FOR each number in the array // (A)
+   FOR each number in the array // (B)
+     print "Hello"              // (C) Constant operation. Runs ’n^2’ times
+   END FOR
+ END FOR
+END FUNCTION
+
+
+Time complexity = Runtime of (A) + Runtime of (B) + Runtime (c) = n + n + n^2 = 2n + n^2 
+Reducing to the largest term, Time Complexity = n^2 = O(n^2), quadratic growth.
+
+3. 
+
+FUNCTION fibonacci(number)
+ IF number < 1 THEN        // Constant  operation (A)
+   ERROR
+ ELSE IF number = 1 or 2 THEN // Constant operation (B)
+   RETURN 1
+ ELSE
+   CALL fibonacci WITH number - 2 RETURNING twoBack // Executes 2^(n-2) times (c)
+   CALL fibonacci WITH number - 1 RETURNING oneBack // The 2^(n-1) (D)
+   RETURN twoBack + oneBack						// Constant operation (E)				
+ END IF
+END FUNCTION
+
+
+Time complexity =  1+1+2^(n-2) + 2^(n-1) + 1
+Removing constants, Time Complexity = 2^(n-2) + 2^(n-1) = 2^n = O(2^n), exponential growth.
+
+9. Out of the code snippets you just saw, which is the most time efficient ?
+A: The linear search algorithm with the time complexity of O(n) is the most efficient.
