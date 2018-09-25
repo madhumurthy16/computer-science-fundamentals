@@ -1,0 +1,98 @@
+
+Exercises
+
+1. Define and compare recursion and iteration.
+A:
+Recursion: Recursion is a technique where a procedure calls itself with parameters incrementally moving towards one of the base cases. The procedure is said to be recursive.
+
+Iteration: Iteration is a technique of utilizing a loop to repeat a process.
+
+Most algorithms can be implemented either recursively or iteratively, each method has its trade-offs. Recursive solutions tend to run slower and are more subject to system limitations than iterative solutions. However, iterative solutions can sometimes be harder to implement.
+
+2. Name five algorithms that are commonly implemented by recursion.
+A:
+	1. Binary search
+	2. Merge sort
+	3. Quick sort	
+	4. Breath-first and depth-first tree/graph algorithm.
+	5. Finding factorial of a number
+	
+3. When should you use recursion, and when should you avoid recursion? Give examples for each.
+
+A:
+You should use recursion if:
+ - The problem is naturally recursive (you can state it in terms of itself).
+Example: Finding the factorial of a number is naturally recursive
+ 
+Avoid recursion if:
+ - The code is straightforward and iterative solution is likely faster. Example: Finding the maximum of a number set.
+ - Even if the algorithm can be easily written recursively, it is important to weigh in the cost of implementing both iteratively and recursively. Because, recursive implementations has the tendency to repeat calculations which introduces a performance concern that outweighs the cost of the slightly more complex iterative implementation. Example: Implementing the algorithm for finding a fibonacci number  
+
+4. Compare the recursive and iterative solutions to the three algorithms from the checkpoint (factorial, maximum, and fibonacci). What is similar, and what is different?
+A:  
+1. Factorial
+	Recursive solution: The factorial operation takes a number and multiplies it with the factorial of the number before it all the way down to 0. Since negative factorials are not valid, passing one in causes an error. The factorial of both 0 and 1 is 1; making them base cases. Since factorial’s definition includes a step of taking the factorial of the prior number, it is the perfect starter algorithm for recursion. 
+
+	Iterative solution: As with the recursive version, the procedure fails at negative numbers as it should. In the iterative version, we keep a running result variable tracking the calculations. It initializes result to 1 (to create a multiplicative identity) and iterates through the numbers from the given number down to 2, emulating the "multiply by factorial(number - 1)" process.
+
+2. Finding maximum
+	Recursive solution: If we pass an empty collection in, the procedure errors; we cannot find the maximum of an empty data set. Next, if the collection of numbers only has one item, we return it since it is automatically the largest; this is our base case. For our recursive case, we take the first value from numbers then recursively call Maximumwith the remaining numbers. Once we have found the maximum of one of these smaller collections, we compare it to the item we held on to and return whichever one is larger.
+	
+	Iterative solution: The iterative version is much cleaner than the recursive version. In the iterative form, we initialize currentMaximum with the first number. Then, we loop through all of the other numbers and compare them to currentMaximum. As we find numbers larger than currentMaximum, we update currentMaximum to that number.
+
+3. Fibonacci
+	Recursive solution: The Fibonacci sequence is a tad more interesting, as it branches to multiple recursive calls per recursive step. The sequence starts off with 1, 1 and then determines the next number by adding the previous two. This algorithm lends itself to recursion: the first two Fibonacci numbers are always 1; these are our base cases. The next number after those is always the number two behind it plus the number one behind it; that is our recursive case.
+
+	Iterative solution: In the iterative form, we keep track of the two numbers to add in variables: one for the previous number and the other the current number. Since the first two Fibonacci numbers are 1, we set up the loop to only iterate when number is greater than or equal to 3. The steps in the loop are the same steps: add the two last numbers to get the next number. When the loop finishes, we return currentsince it holds the latest calculated number (and the one we want).
+
+5. Given a multi-dimensional collection (such as an array) where the number of dimensions is unknown, write a recursive algorithm to count the number of items in the entire collection.
+
+A: 
+
+function countItems(arr) {
+  if(arr.length <= 0){
+    console.log("Error");
+    return 0;
+  }
+  //base case
+  if(!arr[0][0]){
+    return arr.length;
+  }
+  else {
+    return arr.length * countItems(arr[0]);
+  }
+}
+
+var myArr = [[[1,1],[1,1]],[[1,1],[1,1]],[[1,1],[1,1]]];
+console.log(countItems(myArr));
+
+		
+6. A palindrome is a word or phrase whose spelling is the same either direction (e.g., racecar). Write a recursive algorithm to determine if a given word or phrase is a palindrome.
+
+A:
+
+// Compare if the reversed string is the same as the original string.
+function isPali(str){
+  var newStr = isPaliRec(str);
+  return newStr === str;
+}
+
+// Reverse the string recursively
+function isPaliRec(str){
+  if(str.length == 1){
+    return str[0];
+  }
+  else {
+    return str[str.length-1] + isPaliRec(str.substring(0,str.length-1));
+  }
+}
+
+isPali('racecar');
+isPali('Hello');
+
+
+7. 
+Google Easter Egg: Google the term "recursion". Google will prompt you with "Did you mean: recursion". Explain why this behavior exhibits properties of recursion.
+
+A: Searching for the term Recursion, provides a link back to the same page “Did you mean: recursion”, similar to the recursive function calling itself. 
+
