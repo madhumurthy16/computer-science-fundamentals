@@ -51,20 +51,20 @@ A:
 
 function countItems(arr) {
   if(arr.length <= 0){
-    console.log("Error");
     return 0;
   }
-  //base case
-  if(!arr[0][0]){
-    return arr.length;
-  }
-  else {
-    return arr.length * countItems(arr[0]);
+  else{
+      if(typeof arr[0] === 'object'){
+        return countItems(arr[0]) + countItems(arr.slice(1));
+      }
+    else {
+      return 1 + countItems(arr.slice(1));
+    }
   }
 }
-
-var myArr = [[[1,1],[1,1]],[[1,1],[1,1]],[[1,1],[1,1]]];
-console.log(countItems(myArr));
+  
+var myArr = [[[1,1]],[[1,1],[1,1]],[[1,1],[1,[2,2,3,3,1]]]];
+console.log("Total number of items = ", countItems(myArr));
 
 		
 6. A palindrome is a word or phrase whose spelling is the same either direction (e.g., racecar). Write a recursive algorithm to determine if a given word or phrase is a palindrome.
