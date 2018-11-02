@@ -197,4 +197,8 @@ linkedList.reverse();
 console.log("After reversing")
 linkedList.print();
 
+Additional notes:
 
+1. What is a linked list?
+A: A linked list is a linear data structure where elements are not stored in contigous memory locations. The elements in a linked list are linked using pointers.
+It is a data structure consisting of a collection of nodes which together represent a sequence. In its most basic form, each node contains: data, and a reference (in other words, a link) to the next node in the sequence.
